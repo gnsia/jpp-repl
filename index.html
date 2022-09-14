@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>JinnyPark Photography</title>
+  <!-- ⬜️🟥🟥🟥⬜️⬜️⬜️🟥🟥🟥🟥⬜️⬜️🟥🟥🟥🟥- -->
+  <!-- 🟥⬜️⬜️⬜️🟥⬜️🟥⬜⬜️⬜️⬜️⬜️🟥⬜⬜️⬜️⬜️- -->
+  <!-- 🟥⬜️⬜️⬜️⬜️⬜️⬜️🟥🟥🟥⬜️⬜️⬜️🟥🟥🟥⬜️- -->
+  <!-- 🟥⬜️⬜️⬜️🟥⬜️⬜️⬜️⬜️⬜️🟥⬜️⬜️⬜️⬜️⬜️🟥- -->
+  <!-- ⬜️🟥🟥🟥⬜️⬜️🟥🟥🟥🟥⬜️⬜️🟥🟥🟥🟥⬜️- -->
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
+
+    #wrapper {
+      text-align: center;
+      background-color: white;
+    }
+
+    h1 {
+      font-family: 'Lobster', cursive;
+      position: relative;
+      z-index: 2;
+    }
+
+    button {
+      border: 1px solid white;
+      border-radius: 50px;
+      background-color: white;
+      color: black;
+      width: 80px;
+      height: 30px;
+    }
+
+    #liveBtn {
+      color: white;
+      background-color: orange;
+      transition-property: background-color;
+      transition-duration: 1s;
+    }
+
+    #portraitBtn,
+    #eventBtn {
+      color: orange;
+      transition-property: background-color;
+      transition-duration: 1s;
+    }
+
+    #buttons {
+      margin-bottom: 20px;
+    }
+
+    #portraitAlbum,
+    #eventAlbum {
+      display: none;
+    }
+
+
+    img {
+      max-width: 100%;
+    }
+
+    #detail {
+      display: none;
+    }
+
+    @keyframes go-left-right {
+
+      /* 애니메이션 이름 지정: "go-left-right" */
+      from {
+        left: 20px;
+        z-index: 3;
+      }
+
+      to {
+        left: calc(100% - 45px);
+        z-index: 1;
+      }
+    }
+
+    .progress1 {
+      animation: go-left-right 2s infinite alternate;
+      position: absolute;
+      top: 10px;
+      width: 25px;
+      height: 5px;
+      border: 1px solid white;
+      border-radius: 5px;
+      background: orange;
+    }
+
+    .progress2 {
+      animation: go-left-right 2.2s infinite alternate;
+      position: absolute;
+      top: 20px;
+      width: 20px;
+      height: 5px;
+      border: 1px solid white;
+      border-radius: 5px;
+      background: yellowgreen;
+    }
+
+    .progress3 {
+      animation: go-left-right 2.4s infinite alternate;
+      position: absolute;
+      top: 30px;
+      width: 15px;
+      height: 5px;
+      border: 1px solid white;
+      border-radius: 5px;
+      background: skyblue;
+    }
+
+    .progress4 {
+      animation: go-left-right 2.6s infinite alternate;
+      position: absolute;
+      top: 40px;
+      width: 10px;
+      height: 5px;
+      border: 1px solid white;
+      border-radius: 5px;
+      background: blue;
+    }
+
+    .progress5 {
+      animation: go-left-right 2.8s infinite alternate;
+      position: absolute;
+      top: 50px;
+      width: 5px;
+      height: 5px;
+      border: 1px solid white;
+      border-radius: 5px;
+      background: purple;
+    }
+  </style>
+</head>
+
+<!-- 🟥⬜️⬜️⬜️🟥⬜️🟥🟥🟥🟥🟥⬜️🟥⬜️⬜️⬜️🟥⬜️🟥⬜️⬜️⬜️⬜️- -->
+<!-- 🟥⬜️⬜️⬜️🟥⬜️⬜️⬜🟥⬜️⬜️⬜️🟥🟥⬜️🟥🟥⬜️🟥⬜️⬜️⬜️⬜️- -->
+<!-- 🟥🟥🟥🟥🟥⬜️⬜️⬜️🟥⬜️⬜️⬜️🟥⬜️🟥⬜️🟥⬜️🟥⬜️⬜️⬜️⬜️- -->
+<!-- 🟥⬜️⬜️⬜️🟥⬜️⬜️⬜️🟥⬜️⬜️⬜️🟥⬜️⬜️⬜️🟥⬜️🟥⬜️⬜️⬜️⬜️- -->
+<!-- 🟥⬜️⬜️⬜️🟥⬜️⬜️⬜️🟥⬜️⬜️⬜️🟥⬜️⬜️⬜️🟥⬜️🟥🟥🟥🟥🟥- -->
+
+<body>
+  <div id="wrapper">
+    <header>
+      <div class="progress1"></div>
+      <div class="progress2"></div>
+      <div class="progress3"></div>
+      <div class="progress4"></div>
+      <div class="progress5"></div>
+      <h1 id="title">JinnyPark Photography</h1>
+    </header>
+    <div id="contents">
+      <div id="buttons">
+        <button id="liveBtn" class="liveAlbum">Live</button>
+        <button id="portraitBtn" class="portraitAlbum">Portrait</button>
+        <button id="eventBtn" class="eventAlbum">Event</button>
+
+      </div>
+      <div id="albums">
+        <section id="liveAlbum">
+
+          <!-- livePhotos -->
+
+        </section>
+        <section id="portraitAlbum">
+
+          <!-- portraitPhotos -->
+
+        </section>
+        <section id="eventAlbum">
+
+          <!-- eventPhotos -->
+
+        </section>
+      </div>
+    </div>
+    <footer>
+      <h2>Contact</h2>
+      <h4>jinnyparkphotography@gmail.com</h4>
+    </footer>
+    <div id="detail">
+      <img id="detailImg" />
+      <h3 id="detailTitle">
+      </h3>
+      <p id="detailDescription"></p>
+    </div>
+  </div>
+
+  <!-- 🟥🟥🟥🟥⬜️⬜️⬜️🟥🟥🟥🟥⬜️🟥🟥🟥🟥🟥⬜️⬜️🟥🟥🟥🟥- -->
+  <!-- 🟥⬜️⬜️⬜️🟥⬜️🟥⬜⬜️⬜️🟥⬜️⬜⬜🟥⬜️⬜️⬜️🟥⬜⬜️⬜️🟥- -->
+  <!-- 🟥⬜️⬜️⬜️🟥⬜️🟥🟥🟥🟥🟥⬜️⬜️⬜🟥⬜⬜️⬜️🟥🟥🟥🟥🟥- -->
+  <!-- 🟥⬜️⬜️⬜️🟥⬜️🟥⬜️⬜️⬜️🟥⬜️⬜️⬜️🟥⬜️⬜⬜️🟥⬜️⬜️⬜️🟥- -->
+  <!-- 🟥🟥🟥🟥⬜️⬜️🟥⬜️⬜️⬜️🟥⬜️⬜⬜🟥⬜⬜️⬜️🟥⬜️⬜️⬜️🟥- -->
+  <script>
+    const LIVE_SRC = [
+      {
+        id: 'demo01',
+        title: 'Title',
+        rotate: 'vertical',
+        original: 'https://i.ibb.co/8ckCbZJ/demo01.png',
+        thumbnail: 'https://i.ibb.co/yS29pjD/demo01.png',
+        description: 'Description',
+      },
+      {
+        id: 'demo02',
+        title: 'Title',
+        rotate: 'vertical',
+        original: 'https://i.ibb.co/y0CjZyz/demo02.png',
+        thumbnail: 'https://i.ibb.co/0qLb6M0/demo02.png',
+        description: 'Description',
+      },
+      {
+        id: 'demo03',
+        title: 'Title',
+        rotate: 'vertical',
+        original: "https://i.ibb.co/f0hH0KF/demo03.png",
+        thumbnail: "https://i.ibb.co/ZTnxTwX/demo03.png",
+        description: 'Description',
+      },
+      {
+        id: 'demo04',
+        title: 'Title',
+        rotate: 'vertical',
+        original: "https://i.ibb.co/s2CLbxx/demo04.png",
+        thumbnail: "https://i.ibb.co/ZVSyG44/demo04.png",
+        description: 'Description',
+      },
+      {
+        id: 'demo05',
+        title: 'Title',
+        rotate: 'vertical',
+        original: "https://i.ibb.co/YNvZSP3/demo05.png",
+        thumbnail: "https://i.ibb.co/TwzLGYk/demo05.png",
+        description: 'Description',
+      },
+      {
+        id: 'demo06',
+        title: 'Title',
+        rotate: 'vertical',
+        original: "https://i.ibb.co/r6SvT2k/demo06.png",
+        thumbnail: "https://i.ibb.co/cFHxMhJ/demo06.png",
+        description: 'Description',
+      },
+      {
+        id: 'demo07',
+        title: 'Title',
+        rotate: 'horizonal',
+        original: "https://i.ibb.co/xMGngCW/demo07.png",
+        thumbnail: "https://i.ibb.co/vJmNdwp/demo07.png",
+        description: 'Description',
+      },
+    ];
+
+    const PORTRAIT_SRC = [
+      {
+        id: 'demo08',
+        title: 'Title',
+        rotate: 'vertical',
+        original: "https://i.ibb.co/KKcZcmC/demo08.png",
+        thumbnail: "https://i.ibb.co/xFKvK3V/demo08.png",
+        description: 'Description',
+      },
+      {
+        id: 'demo09',
+        title: 'Title',
+        rotate: 'horizonal',
+        original: "https://i.ibb.co/yVTwRbY/demo09.png",
+        thumbnail: "https://i.ibb.co/kMnRyW9/demo09.png",
+        description: 'Description',
+      },
+      {
+        id: 'demo10',
+        title: 'Title',
+        rotate: 'horizonal',
+        original: "https://i.ibb.co/VpC63wt/demo10.png",
+        thumbnail: "https://i.ibb.co/h1d0CYy/demo10.png",
+        description: 'Description',
+      },
+      {
+        id: 'demo11',
+        title: 'Title',
+        rotate: 'vertical',
+        original: "https://i.ibb.co/85hhHnd/demo11.png",
+        thumbnail: "https://i.ibb.co/HzJJjLx/demo11.png",
+        description: 'Description',
+      },
+      {
+        id: 'demo12',
+        title: 'Title',
+        rotate: 'vertical',
+        original: "https://i.ibb.co/qdXZwCD/demo12.png",
+        thumbnail: "https://i.ibb.co/G0Bhj9d/demo12.png",
+        description: 'Description',
+      },
+      {
+        id: 'demo13',
+        title: 'Title',
+        rotate: 'vertical',
+        original: "https://i.ibb.co/6nZjRc3/demo13.png",
+        thumbnail: "https://i.ibb.co/zn5qhWy/demo13.png",
+        description: 'Description',
+      },
+    ];
+
+    const EVENT_SRC = [
+      {
+        id: 'demo14',
+        title: 'Title',
+        rotate: 'vertical',
+        original: "https://i.ibb.co/KKcZcmC/demo08.png",
+        thumbnail: "https://i.ibb.co/xFKvK3V/demo08.png",
+        description: 'Description',
+      },
+    ];
+    /*🟥🟥🟥🟥⬜️⬜️⬜️🟥🟥🟥⬜️⬜️🟥⬜️⬜️⬜️🟥
+      🟥⬜️⬜️⬜️🟥⬜️🟥⬜️⬜️⬜️🟥⬜️🟥🟥⬜️🟥🟥
+      🟥⬜️⬜️⬜️🟥⬜️🟥⬜️⬜️⬜️🟥⬜️🟥⬜️🟥⬜️🟥
+      🟥⬜️⬜️⬜️🟥⬜️🟥⬜️⬜️⬜️🟥⬜️🟥⬜️⬜️⬜️🟥
+      🟥🟥🟥🟥⬜️⬜️⬜️🟥🟥🟥⬜️⬜️🟥⬜️⬜️⬜️🟥*/
+
+    const HEADER = document.querySelector('header');
+    const TITLE = HEADER.querySelector('#title');
+
+    const CONTENTS = document.querySelector('#contents');
+
+    const BUTTONS = CONTENTS.querySelector('#buttons');
+    const BTN_LIST = BUTTONS.querySelectorAll('button');
+    const LIVE_BTN = BUTTONS.querySelector('#liveBtn');
+    const PORTRAIT_BTN = BUTTONS.querySelector('#portraitBtn');
+    const EVENT_BTN = BUTTONS.querySelector('#eventBtn');
+
+    const ALBUMS = CONTENTS.querySelector('#albums');
+    const ALBUM_LIST = CONTENTS.querySelectorAll('section');
+    const LIVE_ALBUM = document.querySelector('#liveAlbum');
+    const PORTRAIT_ALBUM = document.querySelector('#portraitAlbum');
+    const EVENT_ALBUM = document.querySelector('#eventAlbum');
+
+    const FOOTER = document.querySelector('footer');
+
+    const DETAIL_VEIW = document.querySelector('#detail');
+    const DETAIL_IMG = DETAIL_VEIW.querySelector('#detailImg');
+    const DETAIL_TITLE = DETAIL_VEIW.querySelector('#detailTitle');
+    const DETAIL_DESCRIPTION = DETAIL_VEIW.querySelector('#detailDescription');
+
+    /*🟥🟥🟥🟥🟥⬜️⬜️🟥🟥🟥🟥
+      ⬜️⬜️⬜️⬜️🟥⬜️🟥⬜⬜️⬜️⬜️
+      ⬜️⬜️⬜️⬜️🟥⬜️⬜️🟥🟥🟥⬜️
+      🟥⬜️⬜️⬜️🟥⬜️⬜️⬜️⬜️⬜️🟥
+      ⬜️🟥🟥🟥⬜️⬜️🟥🟥🟥🟥⬜️*/
+
+
+
+
+    TITLE.onclick = function () {
+      LIVE_ALBUM.style.display = 'none';
+      PORTRAIT_ALBUM.style.display = 'none';
+      EVENT_ALBUM.style.display = 'none';
+    }
+
+    LIVE_BTN.onclick = function () {
+      changeBtnColor(this);
+      changeAlbum(this);
+    }
+
+    PORTRAIT_BTN.onclick = function () {
+      changeBtnColor(this);
+      changeAlbum(this);
+    }
+
+    EVENT_BTN.onclick = function () {
+      changeBtnColor(this);
+      changeAlbum(this);
+    }
+
+    function changeAlbum(target) {
+      const targetAlbum = ALBUMS.querySelector('#' + target.className);
+      ALBUM_LIST.forEach(album => {
+        if (album.id != target.className) {
+          album.style.display = 'none';
+        }
+      });
+      targetAlbum.style.display = 'block';
+    }
+
+    function changeBtnColor(target) {
+      const backgroundColor = getRandomColor();
+      target.style.backgroundColor = backgroundColor;
+      target.style.color = 'white';
+      BTN_LIST.forEach(btn => {
+        if (btn.id != target.id) {
+          btn.style.backgroundColor = 'white';
+          btn.style.color = backgroundColor;
+        }
+      });
+    }
+
+    function getRandomColor() {
+      const colors = ['orange', 'yellowgreen', 'skyblue'];
+      const idx = Math.floor(Math.random() * colors.length);
+      return colors[idx];
+    }
+
+    combine(LIVE_ALBUM, LIVE_SRC);
+    combine(PORTRAIT_ALBUM, PORTRAIT_SRC);
+    combine(EVENT_ALBUM, EVENT_SRC);
+
+    function combine(album, srcArray) {
+      srcArray.forEach(src => {
+        const thumbnail = getThumbnail(src);
+        album.appendChild(thumbnail);
+      });
+    };
+
+    function getThumbnail(src) {
+      const thumbnail = document.createElement('img');
+      thumbnail.setAttribute('id', src.id);
+      thumbnail.setAttribute('src', src.thumbnail);
+      thumbnail.setAttribute('alt', src.id);
+      thumbnail.onclick = function () {
+        enterDetail(this);
+      }
+      return thumbnail;
+    }
+
+    function enterDetail(target) {
+      const thumbnailId = target.id;
+      const albumId = target.parentElement.id;
+      const src = getSrc(thumbnailId, albumId);
+      setDetail(src);
+      switchContents('detail');
+    }
+
+    function getSrc(thumbnailId, albumId) {
+      const src = [];
+      if (albumId == 'liveAlbum') {
+        src.push(LIVE_SRC.filter(s => s.id == thumbnailId)[0]);
+      }
+      if (albumId == 'portraitAlbum') {
+        src.push(PORTRAIT_SRC.filter(s => s.id == thumbnailId)[0]);
+      }
+      if (albumId == 'eventAlbum') {
+        src.push(EVENT_SRC.filter(s => s.id == thumbnailId)[0]);
+      }
+      return src[0];
+    }
+
+    function setDetail(src) {
+      DETAIL_IMG.setAttribute('src', src.original);
+      DETAIL_IMG.setAttribute('alt', src.id);
+      DETAIL_IMG.onclick = function () {
+        exitDetail(this);
+      }
+      DETAIL_TITLE.innerText = src.title;
+      DETAIL_DESCRIPTION.innerText = src.description;
+      checkRotate(src.rotate);
+    }
+
+    function checkRotate(type) {
+      if (type == 'horizonal') {
+        DETAIL_IMG.style['margin-top'] = '15vh';
+        return;
+      }
+      if (type == 'vertical') {
+        DETAIL_IMG.style['margin-top'] = '0%';
+        return;
+      }
+    }
+
+    function exitDetail(target) {
+      switchContents('thumbnail');
+      const thumbnailId = target.alt;
+      const thumbnail = document.querySelector('#' + thumbnailId);
+      thumbnail.scrollIntoView();
+    }
+
+    function switchContents(type) {
+      if (type === 'detail') {
+        HEADER.style.display = 'none';
+        FOOTER.style.display = 'none';
+        CONTENTS.style.display = 'none';
+        DETAIL_VEIW.style.display = 'block';
+        return;
+      }
+      if (type === 'thumbnail') {
+        HEADER.style.display = 'block';
+        FOOTER.style.display = 'block';
+        CONTENTS.style.display = 'block';
+        DETAIL_VEIW.style.display = 'none';
+      }
+    }
+
+  </script>
+
+  <!--
+  This script places a badge on your repl's full-browser view back to your repl's cover
+  page. Try various colors for the theme: dark, light, red, orange, yellow, lime, green,
+  teal, blue, blurple, magenta, pink!
+  -->
+  <script src="https://replit.com/public/js/replit-badge.js" theme="blue" defer></script>
+</body>
+
+</html>
