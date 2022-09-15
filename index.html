@@ -419,6 +419,7 @@
       thumbnail.setAttribute('id', src.id);
       thumbnail.setAttribute('src', src.thumbnail);
       thumbnail.setAttribute('alt', src.id);
+      thumbnail.setAttribute('loading', 'lazy');
       thumbnail.onclick = function () {
         enterDetail(this);
       }
@@ -461,10 +462,12 @@
     function checkRotate(type) {
       if (type == 'horizonal') {
         DETAIL_IMG.style['margin-top'] = '15vh';
+        DETAIL_IMG.style['max-width'] = '90wh';
         return;
       }
       if (type == 'vertical') {
         DETAIL_IMG.style['margin-top'] = '0%';
+        DETAIL_IMG.style['max-height'] = '70vh';
         return;
       }
     }
